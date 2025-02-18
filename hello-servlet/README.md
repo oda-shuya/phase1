@@ -46,3 +46,22 @@ hello-servlet/
     │           └── index.jsp
     └── pom.xml
 ```
+
+---
+
+仕組みについて
+
+シーケンス図
+
+```mermaid
+sequenceDiagram
+
+Browser ->> Tomcat: HTTP GET / (初期アクセス)
+Tomcat ->> index.jsp: index.jsp をロード
+index.jsp -->> Browser: HTMLコンテンツを表示（Hello Servlet Application & "Say Hello"リンク）
+Browser ->> Tomcat: HTTP GET /hello （リンクをクリック）
+Tomcat ->> web.xml: URLパターンを確認 → HelloWorldServletに委譲
+web.xml ->> HelloWorldServlet.java: doGet()メソッドを呼び出し
+HelloWorldServlet.java -->> Tomcat: "Hello, World!"のHTMLを生成
+Tomcat ->> Browser: HTTPレスポンスで"Hello, World!"を表示
+```
