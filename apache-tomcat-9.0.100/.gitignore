@@ -1,0 +1,12 @@
+*.txt
+CONTRIBUTING.md
+LICENSE
+NOTICE
+README.md
+RELEASE-NOTES
+bin
+conf
+lib
+logs
+temp
+work
