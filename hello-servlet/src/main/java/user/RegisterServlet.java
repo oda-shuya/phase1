@@ -40,6 +40,7 @@ public class RegisterServlet extends HttpServlet {
     }
 
     private boolean saveToDatabase(String username, String email, String hashedPassword) {
+        
         String url = getServletContext().getInitParameter("db.url");
         String user = getServletContext().getInitParameter("db.user");
         String pass = getServletContext().getInitParameter("db.password");
@@ -54,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
         String query = "INSERT INTO userlist (user_uid, username, email, password) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(url, user, pass);
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+            PreparedStatement stmt = conn.prepareStatement(query)) {
 
             logger.info("Database connection successful!");
             logger.debug("Start inserting: uuid = {}, username={}, email={}", uuid, username, email);

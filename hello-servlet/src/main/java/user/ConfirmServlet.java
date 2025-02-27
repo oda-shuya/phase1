@@ -1,7 +1,6 @@
 package user;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,11 +32,9 @@ public class ConfirmServlet extends HttpServlet {
         request.setAttribute("email", email);
         HttpSession session = request.getSession();
         session.setAttribute("password", password);
-
         
         // confirm.jsp に転送
         RequestDispatcher dispatcher = request.getRequestDispatcher("confirm.jsp");
         dispatcher.forward(request, response);
     }
 }
-

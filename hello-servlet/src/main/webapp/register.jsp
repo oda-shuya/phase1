@@ -13,6 +13,7 @@
 
     <% if (success) { %>
         <p class="message success">登録完了</p>
+        <a href="login.jsp">ログイン画面へ</a>
     <% } else { %>
         <p class="message error">登録に失敗しました。もう一度お試しください</p>
     <% } %>
