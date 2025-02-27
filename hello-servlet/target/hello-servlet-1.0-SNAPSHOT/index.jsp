@@ -1,9 +1,24 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Hello Servlet</title>
+    <meta charset="UTF-8">
+    <title>会員情報入力画面</title>
 </head>
 <body>
-    <h1>Thank you for coming!</h1>
-    <a href="hello">Say Hello</a>
+    <h1>会員情報入力</h1>
+    <form action="confirm" method="post">
+        <p>Username: <input type="text" name="username" required></p>
+        <p>Email: <input type="email" name="email" required></p>
+        <p>Password: <input type="password" name="password" required></p>
+        <p>Password for checking: <input type="password" name="password" required></p>
+        <button type="submit">次へ</button>
+    </form>
 </body>
 </html>
+
+<style>
+    body{
+        text-align: center;
+    }
+
+</style>

@@ -1,31 +1,21 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-    request.setCharacterEncoding("UTF-8");
-
-    // `RegisterScreen.jsp` からのデータ受け取り
-    String username = request.getParameter("hiddenUsername");
-    String email = request.getParameter("hiddenEmail");
-    String password = request.getParameter("hiddenPassword"); // 実際には表示しない
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Confirm Screen</title>
+    <title>確認画面</title>
 </head>
-<body>
-    <h1>Confirm Your Information</h1>
-    <p><strong>Username:</strong> <%= username %></p>
-    <p><strong>Email:</strong> <%= email %></p>
+<body>    
+    <h1>確認画面</h1>
+    <p>Username: <%= request.getAttribute("username") %></p>
+    <p>Email: <%= request.getAttribute("email") %></p>
 
-    <!-- hidden input を埋めて submit 時に送る -->
-    <form action="RegisterComplete.jsp" method="post">
-        <input type="hidden" name="username" value="<%= username %>">
-        <input type="hidden" name="email" value="<%= email %>">
-        <input type="hidden" name="password" value="<%= password %>">
-
-        <button type="submit">Confirm</button>
-        <button type="button" action="index.jsp" method="post" onclick="history.back()">Back</button>
+    <!-- StoreServlet にデータを送信する -->
+    <form action="register" method="post">
+        <input type="hidden" name="username" value="<%= request.getAttribute("username") %>">
+        <input type="hidden" name="email" value="<%= request.getAttribute("email") %>">
+        <input type="hidden" name="password" value="<%= session.getAttribute("password") %>">
+        <button type="submit">登録</button>
     </form>
 </body>
 </html>
