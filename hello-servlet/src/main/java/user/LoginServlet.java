@@ -45,27 +45,27 @@ public class LoginServlet extends HttpServlet {
         String query  = "SELECT password FROM userlist WHERE email=?";
 
         try (Connection conn = DriverManager.getConnection(url, user, pass);
-            PreparedStatement stmt = conn.prepareStatement(query)) {
+        PreparedStatement stmt = conn.prepareStatement(query)) {
 
-                logger.debug("got email:{}", email);
+            logger.debug("got email:{}", email);
 
-                stmt.setString(1, email);
+            stmt.setString(1, email);
 
-                try (ResultSet result=stmt.executeQuery()){
-                    if(result.next()) {
-                        String correctpassword = result.getString("password");
+            try (ResultSet result=stmt.executeQuery()){
+                if(result.next()) {
+                    String correctpassword = result.getString("password");
 
-                        if ( BCrypt.checkpw(inputpassword, correctpassword)) {
-                            return true;
-                        }else{
-                            logger.error("UserAction: input incorrect password");
-                            return false;
-                        }
+                    if ( BCrypt.checkpw(inputpassword, correctpassword)) {
+                        return true;
+                    }else{
+                        logger.error("UserAction: input incorrect password");
+                        return false;
                     }
                 }
+            }
         } catch (SQLException e){
             return false;
         }
-        return false;
+            return false;
     }
 }

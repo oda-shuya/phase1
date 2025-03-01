@@ -7,10 +7,11 @@
 <body>
     <h1>会員情報入力</h1>
     <form action="confirm" method="post">
-        <p>Username: <input type="text" name="username" required></p>
+        <label>Username: <input type="text" name="username" required></label>
         <p>Email: <input type="email" name="email" required></p>
         <p>Password: <input type="password" name="password" required></p>
         <p>Password for checking: <input type="password" name="password" required></p>
+
         <button type="submit">次へ</button>
     </form>
 </body>
