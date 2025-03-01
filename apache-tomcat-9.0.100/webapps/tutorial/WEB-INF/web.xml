@@ -6,9 +6,57 @@
         <servlet-name>MyServlet</servlet-name>
         <servlet-class>MyServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>MyServlet</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <url-pattern>/myServlet</url-pattern>
     </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>Login.jsp</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>LoginJSP</servlet-name>
+        <jsp-file>/Login.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginJSP</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegisterJSP</servlet-name>
+        <jsp-file>/Register.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterJSP</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PrintRegisterJSP</servlet-name>
+        <jsp-file>/PrintRegister.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PrintRegisterJSP</servlet-name>
+        <url-pattern>/printRegister</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DoneLoginJSP</servlet-name>
+        <jsp-file>/DoneLogin.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoneLoginJSP</servlet-name>
+        <url-pattern>/doneLogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DoneRegisterJSP</servlet-name>
+        <jsp-file>/DoneRegister.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoneRegisterJSP</servlet-name>
+        <url-pattern>/doneRegister</url-pattern>
+    </servlet-mapping>
+
 </web-app>
