@@ -1,19 +1,13 @@
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.*;
+import java.sql.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
 
 public class CheckLogin extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
     // データベース接続情報
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/mydatabase";
     private static final String JDBC_USER = "root";

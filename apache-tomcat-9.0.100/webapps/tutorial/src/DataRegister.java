@@ -8,10 +8,36 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 public class DataRegister extends HttpServlet {
-    // データベース接続情報
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/mydatabase";
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "Dora1080";
+    // データベース接続情報を格納する静的変数
+    private static String JDBC_URL;
+    private static String JDBC_USER;
+    private static String JDBC_PASSWORD;
+
+    // 静的初期化ブロック：クラスがロードされる際に設定を読み込む
+    static {
+        try {
+            loadDatabaseConfig();
+        } catch (IOException e) {
+            throw new ExceptionInInitializerError("データベース設定の読み込みに失敗しました: " + e.getMessage());
+        }
+    }
+
+    // データベース設定を読み込むメソッド
+    private static void loadDatabaseConfig() throws IOException {
+        Properties prop = new Properties();
+
+        try (InputStream inputStream = DataRegister.class.getClassLoader().getResourceAsStream("config.properties")) {
+            if (inputStream == null) {
+                throw new IllegalStateException("config.propertiesが見つかりません");
+            }
+            prop.load(inputStream);
+            JDBC_URL = prop.getProperty("db.url");
+            JDBC_USER = prop.getProperty("db.username");
+            JDBC_PASSWORD = prop.getProperty("db.password");
+        } catch (IOException e) {
+            throw new IOException("設定ファイルの読み込みに失敗しました", e);
+        }
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
