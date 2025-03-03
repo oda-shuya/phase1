@@ -12,9 +12,7 @@
   - 言語: **Java**
   - フレームワーク: **なし（Servlet & JSP を直接使用）**
   - データベース: **MySQL**
-  - インフラ: **Docker（開発環境）**
-  - 認証方式: **セッションベース認証**
-
+z
 - **ディレクトリ構成**
 
 ```zsh
@@ -35,11 +33,11 @@
 
 ## **2. 機能一覧・システム構成**
 
-|No|機能|リクエスト/レスポンス|Servlet|
-|-|-|-|-|
-|1|会員情報入力|GET `/index` 画面表示|`IndexServlet`|
-|2|入力確認|POST `/confirm` 確認画面表示|`ConfirmServlet`|
-|3|会員登録|POST `/register` DB登録|`RegisterServlet`|
+|No|機能|リクエスト|レスポンス|Servlet|
+|-|-|-|-|-|
+|1|会員情報入力|POST `/confirm.jsp` 画面表示|||
+|2|入力確認|POST `/confirm` 確認画面表示|||
+|3|会員登録||succeeded or failed|`RegisterServlet`|
 
 ---
 
@@ -120,23 +118,51 @@ CREATE TABLE `userlist` (
 
 ---
 
-## **2. API設計（Servletのリクエスト/レスポンス）**
+## **2. 処理フロー**
+
+```mermaid
+sequenceDiagram
+
+participant user as user
+participant index as 会員情報入力画面(/index.jsp)
+participant confirm as 入力情報確認画面(/confirm.jsp)
+participant register as 会員情報登録完了画面(/register.jsp)
+participant registerserv as registerServlet
+
+user ->> index: input user information  
+index ->> index: validate user information 
+index ->> index: hash user's password 
+index ->> index: store user information into session<br>{familyname,<br>firstname,<br>email,<br>hashedpassword}
+index ->> confirm: POST: display input user password 
+confirm -->> user: display
+user ->> confirm: click: `登録する`button
+confirm ->> registerserv: POST: store user information into database
+registerserv ->> registerserv: db procedure
+registerserv -->> register: succeeded or failed
+register ->> register: delete hashedpassword from session
+register -->> user: display result
+
+
+
+```
+
+---
+
+## **3. API設計（Servletのリクエスト/レスポンス）**
 
 |エンドポイント|メソッド|リクエスト|レスポンス|Servlet|
 |-|-|-|-|-|
 |/register|POST|ユーザー情報|登録成功/エラーメッセージ|`RegisterServlet`|
-|/login|POST|メール, パスワード|ログイン成功/エラーメッセージ|`LoginServlet`|
 
 ---
 
-## **3. データベース詳細設計**
+## **4. データベース詳細設計**
 
 - **インデックス:** `email` に適用
-- **トランザクション:** `commit()` / `rollback()` で管理
 
 ---
 
-## **4. 画面設計（JSPファイル構成）**
+## **5. 画面設計（JSPファイル構成）**
 
 - `index.jsp`（入力画面）
 - `confirm.jsp`（確認画面）
@@ -144,16 +170,9 @@ CREATE TABLE `userlist` (
 
 ---
 
-## **5. エラーハンドリング**
+## **6. エラーハンドリング**
 
 - **バリデーションエラー時:** フォームに戻り、メッセージ表示
 - **システムエラー時:** `error.jsp` へ遷移
 
 ---
-
-## **まとめ**
-
-- **概要設計でアーキテクチャを決定**
-- **詳細設計でServlet, DAO, DTOの設計を定義**
-- **データベース設計を考慮（トランザクション, ハッシュ化）**
-- **エラーハンドリング、セキュリティ対策を明確化**
