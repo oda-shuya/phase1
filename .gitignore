@@ -3,3 +3,5 @@
 
 /apache-tomcat-9.0.100/webapps/*
 !/apache-tomcat-9.0.100/webapps/tutorial/
+
+/apache-tomcat-9.0.100/webapps/tutorial/WEB-INF/classes/config.properties
