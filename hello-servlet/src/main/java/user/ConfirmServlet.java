@@ -18,23 +18,33 @@ public class ConfirmServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(RegisterServlet.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String username = request.getParameter("username");
+    throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+
+        String familyname = request.getParameter("familyname");
+        String firstname = request.getParameter("firstname");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        // for Debug
-        logger.debug("Recieved username: " + username);
-        logger.debug("Recieved email: " + email);
-
-        // セッションに保存（確認画面で使用）
-        request.setAttribute("username", username);
-        request.setAttribute("email", email);
         HttpSession session = request.getSession();
-        session.setAttribute("password", password);
+        session.setAttribute("familyname", familyname);
+        session.setAttribute("firstname", firstname);
+        session.setAttribute("email", email);
+
+        // for Debug
+        logger.debug(String.format("Recieved familyname: %s, firstname: %s, email: %s", familyname, firstname, email));
+        
+        // 保存（確認画面で使用）
+        request.setAttribute("familyname", familyname);
+        request.setAttribute("firstname", firstname);
+        request.setAttribute("email", email);
+        request.setAttribute("password", password);
         
         // confirm.jsp に転送
         RequestDispatcher dispatcher = request.getRequestDispatcher("confirm.jsp");
         dispatcher.forward(request, response);
     }
 }
+    

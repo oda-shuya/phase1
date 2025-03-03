@@ -20,17 +20,24 @@ public class RegisterServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(RegisterServlet.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String username = request.getParameter("username");
+        throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+
+        String familyname = request.getParameter("familyname");
+        String firstname = request.getParameter("firstname");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+
+        logger.debug("Start inserting: familyname={}, firstname={} email={}", familyname, firstname, email);
 
         // パスワードのハッシュ化
         String hashedPassword = PasswordUtil.hashPassword(password);
 
         boolean success = false;
         try {
-            success = saveToDatabase(username, email, hashedPassword);
+            success = saveToDatabase(familyname, firstname, email, hashedPassword);
         } catch (Exception e) {
             logger.error("Exception occurred while saving to database:", e);
         }
@@ -39,7 +46,7 @@ public class RegisterServlet extends HttpServlet {
         response.sendRedirect("register.jsp?success=" + success);
     }
 
-    private boolean saveToDatabase(String username, String email, String hashedPassword) {
+    private boolean saveToDatabase(String familyname, String firstname, String email, String hashedPassword) {
         
         String url = getServletContext().getInitParameter("db.url");
         String user = getServletContext().getInitParameter("db.user");
@@ -52,19 +59,20 @@ public class RegisterServlet extends HttpServlet {
         }
 
         // SQLクエリ
-        String query = "INSERT INTO userlist (user_uid, username, email, password) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO userlist (user_uid, familyname, firstname, email, password) VALUES (?, ?, ?, ?, ?)";    
 
         try (Connection conn = DriverManager.getConnection(url, user, pass);
-            PreparedStatement stmt = conn.prepareStatement(query)) {
+        PreparedStatement stmt = conn.prepareStatement(query)) {
 
             logger.info("Database connection successful!");
-            logger.debug("Start inserting: uuid = {}, username={}, email={}", uuid, username, email);
+            logger.debug("Start inserting: uuid = {}, familyname={}, firstname={} email={}", uuid, familyname, firstname, email);
 
             // パラメータをセット（パスワードはハッシュ化済み）
             stmt.setString(1, uuid);
-            stmt.setString(2, username);
-            stmt.setString(3, email);
-            stmt.setString(4, hashedPassword);
+            stmt.setString(2, familyname);
+            stmt.setString(3, firstname);
+            stmt.setString(4, email);
+            stmt.setString(5, hashedPassword);
 
             // SQL 実行
             int rowsInserted = stmt.executeUpdate();
