@@ -45,7 +45,7 @@
 ## 2. プロジェクトのページに行こう
 
 * ブラウザで下のリンクをクリックするか、アドレスバーに貼り付けてね：
-  [https://github.com/ShuyaOda/phase1](https://github.com/ShuyaOda/phase1)
+  [https://github.com/oda-shuya/phase1](https://github.com/oda-shuya/phase1)
 * このページには、今日使うファイルやプログラムが入っています。
 
 ---
@@ -56,7 +56,7 @@
   そのボタンをクリックして、「**HTTPS**」のところに書かれているURLをコピーするね。
   例:
   ```
-  https://github.com/ShuyaOda/phase1.git
+  https://github.com/oda-shuya/phase1.git
   ```
 
 ---
@@ -75,7 +75,7 @@
   さっきコピーしたURLを使って、次のコマンドを打とう:
 
   ```
-  git clone https://github.com/ShuyaOda/phase1.git
+  git clone https://github.com/oda-shuya/phase1.git
   ```
 
   これで、プロジェクトのフォルダがあなたのパソコンにできます。
@@ -135,7 +135,7 @@
 
 ## 7. ブラウザで確認しよう
 
-* 再び、[https://github.com/ShuyaOda/phase1](https://github.com/ShuyaOda/phase1) にアクセスしてね。
+* 再び、[https://github.com/oda-shuya/phase1](https://github.com/oda-shuya/phase1) にアクセスしてね。
 * ページの上部の「Branch（ブランチ）」というところをクリックすると、自分のブランチがあるか確認できるよ。
 
 ---
